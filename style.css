@@ -1,0 +1,98 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0891b2;
+    position: relative;
+    min-height: 100vh;
+}
+
+.wrapper {
+    height: 400px;
+    width: 500px;
+    overflow: hidden;
+}
+
+.box {
+    transition: transform .4s linear;
+    display: flex;
+    user-select: none;
+}
+
+.img {
+    height: 400px;
+    width: 500px;
+    object-fit: cover;
+}
+
+.pre,
+.next {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.pre {
+    top: 50%;
+    left: 25%;
+}
+
+.next {
+    top: 50%;
+    right: 25%;
+}
+
+.pre span::after {
+    display: block;
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-left: 3px solid #ccc;
+    border-top: 3px solid #ccc;
+    transform: rotate(-45deg);
+}
+
+.next span::after {
+    display: block;
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-left: 3px solid #ccc;
+    border-top: 3px solid #ccc;
+    transform: rotate(135deg);
+}
+
+.dots {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    top: 520px;
+    gap: 10px;
+    margin: 0 auto;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #333;
+    background-color: transparent;
+    border-radius: 50%;
+}
+
+.dot.active {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+}
