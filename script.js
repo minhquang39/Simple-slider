@@ -1,50 +1,40 @@
 window.onload = function () {
   const slider = document.querySelector(".box");
   const itemWidth = document.querySelector(".img").clientWidth;
+  const itemLength = document.querySelectorAll(".img").length;
   const pre = document.querySelector(".pre");
   const next = document.querySelector(".next");
   const dots = document.querySelectorAll(".dot");
-  slider.style.width = `${itemWidth * 5}px`;
 
   let positionX = 0;
   let index = 0;
   function handleChangeSlide(direction) {
     if (direction === 1) {
-      if (index === 4) {
-        slider.style.transform = `translateX(${0}px)`;
-        index = -1;
-      }
       index++;
-      console.log(index);
-      positionX = positionX - itemWidth;
-      console.log(positionX);
-      if (positionX < -2000) {
+      positionX += itemWidth;
+      if (index >= itemLength) {
+        index = 0;
         positionX = 0;
+        slider.scrollLeft = positionX;
       }
-      slider.style.transform = `translateX(${positionX}px)`;
     } else if (direction === -1) {
       index--;
+      positionX -= itemWidth;
       if (index < 0) {
-        positionX = -2000;
-        slider.style.transform = `translateX(${positionX}px)`;
-        index = 4;
-        positionX = 2000;
-        return;
+        index = itemLength - 1;
+        positionX = itemLength * itemWidth;
+        slider.scrollLeft = positionX;
+        positionX -= itemWidth;
       }
-      positionX = positionX - itemWidth;
-      console.log(positionX);
-
-      if (positionX < 500) {
-        positionX = 0;
-      }
-      slider.style.transform = `translateX(${-positionX}px)`;
     }
-    [...dots].forEach((el) => {
-      el.classList.remove("active");
+    console.log(index);
+    slider.scrollLeft = positionX;
+    dots.forEach((e) => {
+      e.classList.remove("active");
     });
-    [...dots][index].classList.add("active");
+    dots[index].classList.add("active");
   }
-  [...dots][0].classList.add("active");
+  dots[0].classList.add("active");
 
   pre.addEventListener("click", function () {
     handleChangeSlide(-1);
@@ -53,16 +43,15 @@ window.onload = function () {
     handleChangeSlide(1);
   });
 
-  [...dots].forEach((dot) => {
-    dot.addEventListener("click", (e) => {
-      [...dots].forEach((el) => {
-        el.classList.remove("active");
+  dots.forEach((dot) => {
+    dot.addEventListener("click", function () {
+      dots.forEach((e) => {
+        e.classList.remove("active");
       });
-      e.target.classList.add("active");
-      let slideIndex = e.target.value;
-      index = slideIndex;
+      index = dot.value;
       positionX = index * itemWidth;
-      slider.style.transform = `translateX(${-positionX}px)`;
+      slider.scrollLeft = positionX;
+      dot.classList.add("active");
     });
   });
 };

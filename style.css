@@ -20,9 +20,11 @@
 }
 
 .box {
-    transition: transform .4s linear;
+    /* transition: transform .4s linear; */
+    scroll-behavior: smooth;
     display: flex;
     user-select: none;
+    overflow-y: auto;
 }
 
 .img {
